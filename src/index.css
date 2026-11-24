@@ -1,0 +1,224 @@
+@import '@fontsource-variable/manrope';
+@import '@fontsource-variable/fraunces';
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Fraunces Variable', ui-serif, Georgia, Cambria, serif;
+
+  --color-canvas: #fbfaf6;
+  --color-canvas-deep: #f4f1e8;
+  --color-surface: #ffffff;
+  --color-ink: #15211b;
+  --color-ink-soft: #55635a;
+  --color-ink-mute: #7c887f;
+  --color-line: #e8e3d7;
+  --color-line-soft: #f0ece2;
+  --color-brand: #0e6b4f;
+  --color-brand-dark: #0a5039;
+  --color-brand-deep: #073a2a;
+  --color-brand-soft: #e8f2ec;
+  --color-brand-mist: #f1f7f3;
+  --color-sand: #f2ebdd;
+  --color-clay: #a2522f;
+  --color-gold: #b08535;
+
+  --shadow-soft: 0 1px 2px rgba(21, 33, 27, 0.04), 0 12px 32px -18px rgba(21, 33, 27, 0.16);
+  --shadow-lift: 0 2px 4px rgba(21, 33, 27, 0.05), 0 26px 48px -26px rgba(21, 33, 27, 0.28);
+  --shadow-float: 0 30px 70px -34px rgba(10, 60, 44, 0.42);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-ink;
+    font-variation-settings: 'SOFT' 40, 'WONK' 1;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: #0e6b4f;
+    color: #fffdf7;
+  }
+
+  :focus-visible {
+    outline: 2px solid #0e6b4f;
+    outline-offset: 3px;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-ink-mute;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .grain {
+    background-image: radial-gradient(rgba(21, 33, 27, 0.045) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+
+  .line-clamp-2-safe {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .stripe-brand {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.1) 0 8px,
+      transparent 8px 16px
+    );
+  }
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.animate-fade-in {
+  animation: fade-in 0.4s ease both;
+}
+.animate-scale-in {
+  animation: scale-in 0.3s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.animate-toast-in {
+  animation: toast-in 0.32s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.animate-float {
+  animation: float-soft 7s ease-in-out infinite;
+}
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-scale-in,
+  .animate-toast-in,
+  .animate-float,
+  .animate-marquee {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
