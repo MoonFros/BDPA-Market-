@@ -136,3 +136,37 @@ overflow; touch targets sized for mobile use.
 ---
 
 Built as a concept to show what a shared digital home for BDPA Shopping Complex could look like.
+
+## Deploying to Vercel
+
+The project is a standard Vite single-page app, so Vercel auto-detects everything. A `vercel.json`
+is included with the SPA rewrite (so deep links such as `/shops/fresh-basket` work), build settings
+and long-lived caching for images.
+
+**Option A — Git integration (recommended)**
+
+1. Push this repository to GitHub (already done on the working branch).
+2. Go to [vercel.com/new](https://vercel.com/new) and **Import** the repository.
+3. Vercel detects **Vite**. Confirm:
+   - Framework preset: **Vite**
+   - Build command: `npm run build`
+   - Output directory: `dist`
+   - Install command: `npm install`
+4. Leave environment variables empty — there are none.
+5. Click **Deploy**. The first build takes about a minute.
+6. Every later push to the production branch triggers a new deployment; pull requests get preview URLs.
+
+**Option B — Vercel CLI**
+
+```bash
+npm i -g vercel
+vercel          # first run: link the project, then deploy a preview
+vercel --prod   # promote to production
+```
+
+**Routing note:** the rewrite in `vercel.json` sends every unknown path to `index.html`, which is what
+lets React Router handle `/shops`, `/owners` and product URLs on a hard refresh. Without it, deep links
+would return a 404 from the CDN.
+
+**Custom domain:** Project → Settings → Domains → add your domain and follow the DNS instructions.
+No server, database or environment configuration is required for this demonstration.
