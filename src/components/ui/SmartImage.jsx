@@ -15,6 +15,7 @@ export default function SmartImage({
   fallbackLabel,
   eager = false,
   sizes,
+  compact = false,
 }) {
   const [status, setStatus] = useState('loading');
 
@@ -28,16 +29,22 @@ export default function SmartImage({
       )}
 
       {status === 'error' ? (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-center">
-          <span className="grid size-11 place-items-center rounded-full bg-white/70 text-ink-mute ring-1 ring-line">
-            <Icon className="size-5" strokeWidth={1.5} />
-          </span>
-          {(fallbackLabel || alt) && (
-            <span className="max-w-[80%] px-3 text-[11px] leading-tight font-medium tracking-wide text-ink-mute uppercase">
-              {fallbackLabel || alt}
+        compact ? (
+          <div className="absolute inset-0 grid place-items-center text-ink-mute/70">
+            <Icon className="size-[38%] max-h-5 max-w-5" strokeWidth={1.5} />
+          </div>
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-2 text-center">
+            <span className="grid size-11 max-h-[38%] max-w-[38%] place-items-center rounded-full bg-white/70 text-ink-mute ring-1 ring-line">
+              <Icon className="size-[45%]" strokeWidth={1.5} />
             </span>
-          )}
-        </div>
+            {(fallbackLabel || alt) && (
+              <span className="line-clamp-2 max-w-[85%] text-[10.5px] leading-tight font-medium tracking-wide text-ink-mute uppercase">
+                {fallbackLabel || alt}
+              </span>
+            )}
+          </div>
+        )
       ) : (
         <img
           src={src}

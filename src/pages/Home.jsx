@@ -63,9 +63,11 @@ function HeroSearch() {
           placeholder="What are you looking for today?"
           className="h-11 min-w-0 flex-1 bg-transparent text-[14px] text-ink outline-none placeholder:text-ink-mute sm:text-[15px]"
         />
-        <Button type="submit" size="md" className="hidden shrink-0 px-5 sm:inline-flex" IconRight={ArrowRight}>
-          Search
-        </Button>
+        <div className="hidden shrink-0 sm:block">
+          <Button type="submit" size="md" className="px-5" IconRight={ArrowRight}>
+            Search
+          </Button>
+        </div>
         <Button type="submit" size="icon" className="shrink-0 sm:hidden" aria-label="Search">
           <Search className="size-4" />
         </Button>
@@ -195,7 +197,7 @@ function Hero() {
                   className="aspect-[4/3] w-full sm:aspect-[5/4] lg:aspect-[4/3.4]"
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/5 to-transparent" />
-                <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 sm:inset-x-5 sm:bottom-5">
+                <div className="absolute inset-x-4 bottom-4 hidden items-end justify-between gap-3 sm:inset-x-5 sm:bottom-5 sm:flex">
                   <div>
                     <p className="text-[10px] font-semibold tracking-[0.16em] text-white/70 uppercase">
                       BDPA Shopping Complex
@@ -228,7 +230,7 @@ function Hero() {
 
               <Link
                 to="/shops/mama-eso-kitchen/product/party-jollof"
-                className="group absolute -right-2 -bottom-6 flex w-[15.5rem] items-center gap-3 rounded-2xl border border-line bg-white/95 p-2.5 shadow-lift backdrop-blur transition hover:-translate-y-0.5 sm:-right-5 lg:-right-7"
+                className="group absolute -right-1 -bottom-4 flex w-[15rem] items-center gap-3 sm:-right-5 sm:-bottom-6 sm:w-[15.5rem] lg:-right-7 sm:-right-5 sm:-bottom-6 sm:w-[15.5rem] lg:-right-7 rounded-2xl border border-line bg-white/95 p-2.5 shadow-lift backdrop-blur transition hover:-translate-y-0.5 sm:-right-5 lg:-right-7"
               >
                 <SmartImage
                   src={jollof.image}
@@ -237,9 +239,9 @@ function Hero() {
                   imgClassName="group-hover:scale-105"
                 />
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-[12.5px] font-semibold text-ink">{jollof.name}</span>
+                  <span className="line-clamp-2 block text-[12.5px] leading-tight font-semibold text-ink">{jollof.name}</span>
                   <span className="mt-0.5 flex items-center justify-between gap-2">
-                    <span className="text-[11px] text-ink-soft">Mama Eso Kitchen</span>
+                    <span className="truncate text-[11px] text-ink-soft">Mama Eso Kitchen</span>
                     <span className="font-display text-[13px] font-semibold text-ink">
                       {formatNaira(jollof.price)}
                     </span>

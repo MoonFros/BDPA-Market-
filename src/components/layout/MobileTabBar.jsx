@@ -12,7 +12,7 @@ const tabs = [
 export default function MobileTabBar() {
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-canvas/92 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-canvas/92 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:hidden"
       aria-label="Mobile sections"
     >
       <div className="mx-auto flex max-w-lg items-stretch justify-around px-2">
