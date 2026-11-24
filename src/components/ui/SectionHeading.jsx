@@ -1,25 +1,46 @@
 import { cn } from '../../lib/utils';
 
-export default function SectionHeading({ eyebrow, title, description, action, align = 'left', className }) {
+export default function SectionHeading({
+  eyebrow,
+  title,
+  intro,
+  align = 'left',
+  tone = 'dark',
+  className,
+  children,
+}) {
+  const light = tone === 'light';
   return (
     <div
       className={cn(
-        'flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between',
-        align === 'center' && 'sm:flex-col sm:items-center sm:text-center',
+        'flex flex-col gap-4',
+        align === 'center' && 'items-center text-center',
         className,
       )}
     >
-      <div className={cn('max-w-2xl', align === 'center' && 'mx-auto')}>
-        {eyebrow && (
-          <p className="mb-3 flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em] text-brand uppercase">
-            <span className="h-px w-6 bg-brand/40" />
-            {eyebrow}
-          </p>
+      {eyebrow && (
+        <span className={cn('eyebrow', light ? 'text-cream/70' : 'text-terracotta')}>{eyebrow}</span>
+      )}
+      <h2
+        className={cn(
+          'max-w-2xl text-[clamp(1.9rem,4.4vw,3.1rem)] leading-[1.06] font-semibold',
+          light && 'text-cream',
         )}
-        <h2 className="text-[clamp(1.75rem,3.4vw,2.6rem)] leading-[1.08] font-semibold">{title}</h2>
-        {description && <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{description}</p>}
-      </div>
-      {action && <div className="shrink-0">{action}</div>}
+      >
+        {title}
+      </h2>
+      {intro && (
+        <p
+          className={cn(
+            'max-w-xl text-[14px] leading-relaxed sm:text-[15px]',
+            light ? 'text-cream/70' : 'text-ink-soft',
+            align === 'center' && 'mx-auto',
+          )}
+        >
+          {intro}
+        </p>
+      )}
+      {children}
     </div>
   );
 }

@@ -1,31 +1,48 @@
-// Converts source imagery in /assets-src into optimized WebP assets in /public/img.
-// Run: node scripts/optimize-images.mjs
+/**
+ * SAVORA image pipeline.
+ *
+ * Converts the large generated PNGs in `assets-src/savora` (not committed)
+ * into the optimised WebP files served from `public/img/savora`.
+ *
+ * The remaining photographs in public/img/savora were derived once from
+ * generated and earlier sample assets, and are committed as-is.
+ *
+ * Run with: node scripts/optimize-images.mjs
+ */
 import sharp from 'sharp';
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import { mkdir } from 'node:fs/promises';
 
-const SRC = 'assets-src';
-const OUT = 'public/img';
+const SRC = 'assets-src/savora';
+const OUT = 'public/img/savora';
 
-async function main() {
-  let entries;
-  try { entries = await fs.readdir(SRC); } catch { console.log('no assets-src dir'); return; }
-  const targets = entries.filter((f) => /\.(png|jpe?g|webp)$/i.test(f));
-  let total = 0;
-  for (const file of targets) {
-    const name = path.basename(file, path.extname(file));
-    let dir = 'products';
-    if (name.startsWith('shop-')) dir = 'shops';
-    if (name.startsWith('cat-')) dir = 'categories';
-    if (name.startsWith('hero-') || name.startsWith('about-')) dir = '.';
-    const dest = path.join(OUT, dir, `${name}.webp`);
-    const info = await sharp(path.join(SRC, file))
-      .resize({ width: 1400, withoutEnlargement: true })
-      .webp({ quality: 82 })
-      .toFile(dest);
-    total += info.size;
-    console.log(`${dest} ${Math.round(info.size / 1024)}KB`);
-  }
-  console.log(`Done. ${Math.round(total / 1024)}KB total`);
+await mkdir(OUT, { recursive: true });
+
+const jobs = [
+  { from: `${SRC}/hero-dining.png`, to: 'hero.webp', width: 1800, quality: 84 },
+  { from: `${SRC}/interior.png`, to: 'interior.webp', width: 1400 },
+  { from: `${SRC}/chef-plating.png`, to: 'chef.webp', width: 1400 },
+  { from: `${SRC}/jollof-chicken.png`, to: 'dish-jollof.webp', width: 1200 },
+  { from: `${SRC}/grilled-fish.png`, to: 'dish-grilled-fish.webp', width: 1200 },
+  { from: `${SRC}/shawarma.png`, to: 'dish-shawarma.webp', width: 1200 },
+  { from: `${SRC}/alfredo.png`, to: 'dish-alfredo.webp', width: 1200 },
+  { from: `${SRC}/pepper-soup.png`, to: 'dish-pepper-soup.webp', width: 1200 },
+  { from: `${SRC}/fried-rice.png`, to: 'dish-fried-rice.webp', width: 1200 },
+  { from: `${SRC}/chocolate-cake.png`, to: 'dish-cake.webp', width: 1200 },
+  {
+    // Grill close-up cropped from the jollof plate photograph.
+    from: `${SRC}/jollof-chicken.png`,
+    to: 'dish-grilled-chicken.webp',
+    width: 760,
+    extract: { left: 800, top: 90, width: 580, height: 660 },
+  },
+];
+
+for (const job of jobs) {
+  const input = sharp(job.from);
+  if (job.extract) input.extract(job.extract);
+  await input
+    .resize({ width: job.width, withoutEnlargement: true })
+    .webp({ quality: job.quality ?? 82, effort: 5 })
+    .toFile(`${OUT}/${job.to}`);
+  console.log('✓', job.to);
 }
-main();
