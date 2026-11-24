@@ -128,7 +128,7 @@ export default function ShopsPage() {
         </div>
       </section>
 
-      <div className="sticky top-[68px] z-30 border-b border-line bg-canvas/90 backdrop-blur-xl lg:top-[76px]">
+      <div className="z-30 border-b border-line bg-canvas/90 backdrop-blur-xl md:sticky md:top-[68px] lg:top-[76px]">
         <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
             <div className="relative flex-1">
@@ -136,7 +136,7 @@ export default function ShopsPage() {
               <input
                 value={query}
                 onChange={(event) => update({ q: event.target.value })}
-                placeholder="Search businesses, products or services…"
+                placeholder="Search shops & products"
                 aria-label="Search businesses"
                 className="h-11 w-full rounded-full border border-line bg-white pr-10 pl-11 text-[13.5px] text-ink shadow-[0_1px_2px_rgba(21,33,27,0.03)] outline-none transition focus:border-brand/40 focus:shadow-soft"
               />

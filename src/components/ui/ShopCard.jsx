@@ -17,6 +17,7 @@ function ProductThumbs({ shop }) {
             src={product.image}
             alt={product.name}
             icon={Store}
+            compact
             className="size-9 rounded-full ring-2 ring-white"
           />
         ))}

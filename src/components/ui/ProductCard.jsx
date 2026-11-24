@@ -50,12 +50,14 @@ export function ProductCard({ product, showShop = true, accent }) {
             {product.name}
           </Link>
         </h3>
-        <div className="mt-auto flex items-end justify-between gap-2 pt-2">
-          <p className="font-display text-lg leading-none font-semibold text-ink">
+        <div className="mt-auto flex flex-wrap items-end justify-between gap-x-2 gap-y-0.5 pt-2">
+          <p className="font-display text-[15px] leading-none font-semibold text-ink sm:text-lg">
             {formatNaira(product.price)}
-            <span className="ml-1 font-sans text-[11px] font-medium text-ink-mute">{product.unit}</span>
+            <span className="ml-1 font-sans text-[10.5px] font-medium text-ink-mute sm:text-[11px]">
+              {product.unit}
+            </span>
           </p>
-          <span className="text-[11px] font-medium whitespace-nowrap text-ink-mute opacity-0 transition-opacity group-hover:opacity-100">
+          <span className="hidden text-[11px] font-medium whitespace-nowrap text-ink-mute opacity-0 transition-opacity group-hover:opacity-100 sm:inline">
             View product
           </span>
         </div>

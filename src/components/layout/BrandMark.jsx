@@ -26,14 +26,14 @@ export default function BrandMark({ className, dark = false, compact = false }) 
   return (
     <Link
       to="/"
-      className={cn('group flex items-center gap-2.5 rounded-xl focus-visible:outline-offset-4', className)}
+      className={cn('group flex min-w-0 items-center gap-2 rounded-xl focus-visible:outline-offset-4 sm:gap-2.5', className)}
       aria-label="BDPA Market — home"
     >
-      <LogoGlyph className="transition-transform duration-300 group-hover:-rotate-3" />
-      <span className="flex flex-col leading-none">
+      <LogoGlyph className="size-9 transition-transform duration-300 group-hover:-rotate-3 sm:size-10" />
+      <span className="flex min-w-0 flex-col leading-none">
         <span
           className={cn(
-            'font-display text-[19px] font-semibold tracking-tight',
+            'truncate font-display text-[16.5px] font-semibold tracking-tight sm:text-[19px]',
             dark ? 'text-white' : 'text-ink',
           )}
         >
@@ -42,7 +42,7 @@ export default function BrandMark({ className, dark = false, compact = false }) 
         {!compact && (
           <span
             className={cn(
-              'mt-1 text-[9px] font-semibold tracking-[0.16em] uppercase',
+              'mt-1 hidden text-[9px] font-semibold tracking-[0.16em] uppercase sm:block',
               dark ? 'text-white/45' : 'text-ink-mute',
             )}
           >

@@ -144,13 +144,13 @@ function Overview({ products, onNavigate }) {
               This week
             </span>
           </div>
-          <div className="mt-4 flex h-28 items-end gap-2">
+          <div className="mt-4 flex items-end gap-2">
             {views.map((item) => (
               <div key={item.day} className="flex flex-1 flex-col items-center gap-1.5">
-                <div className="flex w-full flex-1 items-end">
+                <div className="flex h-24 w-full items-end sm:h-28">
                   <div
                     className="w-full rounded-t-md bg-gradient-to-t from-brand/70 to-brand transition-all duration-500 hover:from-brand hover:to-brand"
-                    style={{ height: `${Math.max(12, (item.value / max) * 100)}%` }}
+                    style={{ height: `${Math.max(8, (item.value / max) * 100)}%` }}
                     title={`${item.value} views`}
                   />
                 </div>
@@ -525,14 +525,14 @@ function AnalyticsPanel({ products }) {
         <div className="rounded-xl border border-line bg-white p-4">
           <p className="text-[11px] font-semibold text-ink">Views this week</p>
           <p className="text-[9.5px] text-ink-mute">Illustrative demo analytics</p>
-          <div className="mt-4 flex h-32 items-end gap-2">
+          <div className="mt-4 flex items-end gap-2">
             {views.map((item) => (
-              <div key={item.day} className="flex flex-1 flex-col items-center gap-1.5">
+              <div key={item.day} className="flex flex-1 flex-col items-center gap-1">
                 <span className="text-[8px] text-ink-mute">{item.value}</span>
-                <div className="flex w-full flex-1 items-end">
+                <div className="flex h-28 w-full items-end">
                   <div
-                    className="w-full rounded-t bg-brand/15 transition-all hover:bg-brand/30"
-                    style={{ height: `${Math.max(10, (item.value / max) * 100)}%` }}
+                    className="w-full rounded-t bg-brand/20 transition-all hover:bg-brand/35"
+                    style={{ height: `${Math.max(8, (item.value / max) * 100)}%` }}
                   />
                 </div>
                 <span className="text-[8.5px] text-ink-mute">{item.day}</span>

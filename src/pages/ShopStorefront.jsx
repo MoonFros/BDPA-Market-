@@ -224,6 +224,7 @@ export default function ShopStorefront() {
   const [query, setQuery] = useState('');
   const [activeSection, setActiveSection] = useState('All');
   const [contactOpen, setContactOpen] = useState(false);
+  const [readMore, setReadMore] = useState(false);
   const notifyDemo = useDemoNotice();
   const { toast } = useToast();
 
@@ -309,27 +310,8 @@ export default function ShopStorefront() {
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-[10.5px] font-semibold text-white ring-1 ring-white/25 backdrop-blur">
               <BadgeCheck className="size-3.5" /> Demo storefront · sample data
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-[10.5px] font-medium text-white ring-1 ring-white/25 backdrop-blur">
+            <span className="hidden items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-[10.5px] font-medium text-white ring-1 ring-white/25 backdrop-blur sm:inline-flex">
               <MapPin className="size-3" /> {shop.location.block} · {shop.location.unit}
-            </span>
-          </div>
-          <div className="absolute inset-x-4 bottom-4 flex flex-wrap items-end justify-between gap-3 sm:inset-x-5 sm:bottom-5">
-            <div>
-              <p className="text-[10px] font-semibold tracking-[0.16em] text-white/65 uppercase">
-                {category?.name}
-              </p>
-              <p className="mt-0.5 hidden font-display text-lg font-semibold text-white sm:block">
-                {shop.tagline}
-              </p>
-            </div>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-[10.5px] font-semibold text-ink backdrop-blur">
-              <span
-                className={cn(
-                  'size-1.5 rounded-full',
-                  shop.openStatus.startsWith('Open') ? 'bg-emerald-500' : 'bg-amber-500',
-                )}
-              />
-              {shop.openStatus} · {shop.openNote}
             </span>
           </div>
         </div>
@@ -338,7 +320,7 @@ export default function ShopStorefront() {
         <div className="relative z-10 -mt-10 rounded-[1.5rem] border border-line bg-white p-4 shadow-lift sm:p-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-start gap-3.5 sm:gap-4">
-              <ShopLogo shop={shop} size="xl" className="ring-4 ring-canvas sm:size-20" />
+              <ShopLogo shop={shop} size="lg" className="ring-4 ring-canvas sm:size-20" />
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="font-display text-[clamp(1.6rem,3.4vw,2.3rem)] leading-tight font-semibold text-ink">
@@ -350,10 +332,20 @@ export default function ShopStorefront() {
                   >
                     <BadgeCheck className="size-3" /> Demo verified
                   </span>
+                  <span className="hidden rounded-full border border-line px-2 py-0.5 text-[9.5px] font-semibold text-ink-soft sm:inline-block">
+                    {category?.name}
+                  </span>
                 </div>
-                <p className="mt-1 max-w-xl text-[13px] leading-relaxed text-ink-soft">
+                <p className={cn('mt-1 max-w-xl text-[13px] leading-relaxed text-ink-soft', !readMore && 'line-clamp-4 lg:line-clamp-none')}>
                   {shop.tagline}. {shop.description}
                 </p>
+                <button
+                  type="button"
+                  onClick={() => setReadMore((value) => !value)}
+                  className="mt-1 text-[11.5px] font-semibold text-brand transition hover:text-brand-deep lg:hidden"
+                >
+                  {readMore ? 'Show less' : 'Read more'}
+                </button>
                 <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11.5px] text-ink-soft">
                   <Rating value={shop.rating} count={shop.reviews} />
                   <span className="inline-flex items-center gap-1.5">
@@ -416,7 +408,7 @@ export default function ShopStorefront() {
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder={`Search ${shop.name}…`}
+                placeholder="Search this shop…"
                 aria-label={`Search ${shop.name}`}
                 className="h-10 w-full rounded-full border border-line bg-white pr-4 pl-10 text-[12.5px] text-ink outline-none transition focus:border-[var(--accent)]/50"
               />
@@ -524,12 +516,12 @@ export default function ShopStorefront() {
                   <Link
                     key={item.slug}
                     to={`/shops/${item.slug}`}
-                    className="group flex items-center gap-3 rounded-2xl border border-line bg-white p-3 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift"
+                    className="group flex min-w-0 items-center gap-3 overflow-hidden rounded-2xl border border-line bg-white p-3 shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift"
                   >
                     <ShopLogo shop={item} size="md" />
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-[13px] font-semibold text-ink">{item.name}</p>
-                      <p className="truncate text-[11px] text-ink-soft">{item.tagline}</p>
+                      <p className="line-clamp-1 text-[11px] text-ink-soft">{item.tagline}</p>
                     </div>
                     <ArrowUpRight className="size-4 shrink-0 text-ink-mute transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </Link>

@@ -121,7 +121,7 @@ export default function Header({ onOpenSearch }) {
 
   return (
     <>
-      <div className="hidden border-b border-line-soft bg-canvas-deep/60 md:block">
+      <div className="hidden border-b border-line-soft bg-canvas-deep/60 lg:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-2 text-[11px] text-ink-soft">
           <p className="inline-flex items-center gap-2">
             <span className="size-1.5 rounded-full bg-brand" />
@@ -144,7 +144,7 @@ export default function Header({ onOpenSearch }) {
         )}
       >
         <div className="mx-auto flex h-[68px] max-w-7xl items-center gap-3 px-4 sm:px-6 lg:h-[76px]">
-          <BrandMark className="mr-auto shrink-0 lg:mr-4" />
+          <BrandMark className="mr-auto lg:mr-4" />
 
           <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
             {navLinks.map((link) => (
@@ -164,18 +164,18 @@ export default function Header({ onOpenSearch }) {
             ))}
           </nav>
 
-          <div className="ml-auto flex items-center gap-2">
+          <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
             <LocationMenu />
 
             <button
               type="button"
               onClick={onOpenSearch}
-              className="hidden h-9 items-center gap-2 rounded-full border border-line bg-white/70 pl-3 pr-2 text-[12.5px] text-ink-mute transition hover:border-brand/30 hover:bg-white hover:text-ink md:flex md:w-52 xl:w-64"
+              className="hidden h-9 items-center gap-2 overflow-hidden rounded-full border border-line bg-white/70 pr-2 pl-3 text-[12.5px] whitespace-nowrap text-ink-mute transition hover:border-brand/30 hover:bg-white hover:text-ink md:flex md:w-64 lg:w-44 xl:w-64"
               aria-label="Search shops and products"
             >
               <Search className="size-3.5" />
-              <span className="flex-1 text-left">Search shops & products</span>
-              <kbd className="rounded border border-line bg-canvas px-1 py-0.5 text-[9.5px] font-medium tracking-wide text-ink-mute">
+              <span className="flex-1 truncate text-left">Search shops & products</span>
+              <kbd className="hidden rounded border border-line bg-canvas px-1 py-0.5 text-[9.5px] font-medium tracking-wide text-ink-mute xl:block">
                 ⌘K
               </kbd>
             </button>
@@ -189,9 +189,11 @@ export default function Header({ onOpenSearch }) {
               <Search className="size-5" />
             </button>
 
-            <Button to="/owners" size="sm" className="hidden h-9 px-4 text-[12.5px] sm:inline-flex" Icon={Store}>
-              For Shop Owners
-            </Button>
+            <div className="hidden shrink-0 sm:block">
+              <Button to="/owners" size="sm" className="h-9 px-4 text-[12.5px]" Icon={Store}>
+                For Shop Owners
+              </Button>
+            </div>
 
             <button
               type="button"

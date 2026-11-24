@@ -11,7 +11,7 @@ export default function Footer() {
 
   return (
     <footer className="mt-24 border-t border-line bg-canvas-deep/50">
-      <div className="mx-auto max-w-7xl px-4 pt-14 pb-28 sm:px-6 lg:py-16">
+      <div className="mx-auto max-w-7xl px-4 pt-14 pb-28 sm:px-6 md:py-16">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
           <div>
             <BrandMark />

@@ -138,9 +138,10 @@ export default function ProductDetail() {
               className="inline-flex items-center gap-2.5 rounded-full border border-line bg-white py-1.5 pr-3.5 pl-1.5 shadow-soft transition hover:border-[var(--accent)]/30"
             >
               <ShopLogo shop={shop} size="sm" ring={false} />
-              <span className="text-[11.5px] font-semibold text-ink">{shop.name}</span>
-              <span className="h-3 w-px bg-line" />
-              <span className="text-[10.5px] font-medium text-ink-mute">{category?.name}</span>
+              <span className="truncate text-[11.5px] font-semibold text-ink">{shop.name}</span>
+              <span className="hidden h-3 w-px bg-line sm:inline-block" />
+              <span className="hidden text-[10.5px] font-medium text-ink-mute sm:inline">{category?.name}</span>
+              <span className="hidden h-3 w-px bg-line sm:inline-block" />
               <ArrowRight className="size-3 text-ink-mute" />
             </Link>
 
